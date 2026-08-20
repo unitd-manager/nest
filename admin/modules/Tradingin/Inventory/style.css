@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+@media all
+{
+	.c50l {
+	    width: 40%;
+	}
+
+	.c50r{
+		width: 60%;
+	}
+
+    .m-tradingin_inventory .toggle {
+        display:block;
+    }
+
+    .m-tradingin_inventory .yform{
+        background-color: #fff;
+        border: 0;
+        padding: 0;
+    }
+
+    .m-tradingin_inventory .c50l,
+    .m-tradingin_inventory .c50r {
+        width: 100%;
+    }
+
+    .m-tradingin_inventory .ym-columnar .ym-fbox-text label,
+    .m-tradingin_inventory .ym-columnar .ym-fbox-select label,
+    .m-tradingin_inventory #frmEdit .type-text label,
+    .m-tradingin_inventory #frmEdit .type-select label {
+        width: 100%;
+    }
+
+    .m-tradingin_inventory #frmEdit .creModdate .type-text label{
+        width: 20%;
+    }
+
+    .m-tradingin_inventory .yform.edit .type-text div.txt, 
+    .m-tradingin_inventory .yform.edit .type-text div.txt, 
+    .m-tradingin_inventory .yform.edit .type-select div.txt, 
+    .m-tradingin_inventory .yform.edit .form-row-wrapper div.txt{
+    	margin-left: 0 !important;
+    }
+
+    .rightPanel .header{
+    	background-color: #FFFFFF;
+    }
+
+    .poDisplay {
+	    background-color: #FFFFFF;
+	}
+
+    .thinlist.stockDetailsTable {
+        border: 2px solid #23B7E5 !important;
+    }
+
+    .thinlist.stockDetailsTable th, .thinlist.stockDetailsTable td {
+        font-size: 18px !important;
+        font-weight: bold;
+    }
+
+    .linkPortalWrapper.panel{
+        border:none;
+    }
+
+    .RightPanelHeading {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .orderRightPanelTr{
+        background-color: #8EFFFF;
+    }
+}

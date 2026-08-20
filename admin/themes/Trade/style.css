@@ -1,0 +1,328 @@
+@media all
+{
+    .row-tradingsg_quote__tradingsg_productLink .w25p {
+        width: 22%;
+    }
+
+    .row-tradingsg_quote__tradingsg_productLink .cost-price {
+        width: 6%;
+    }
+
+    .rightPanel .header a {
+        color: #174A6F;
+    }
+
+    #topnav .hlist ul li a.nav_utils{
+        background: url("images/utils.png") no-repeat scroll 14px 7px;
+    }
+
+        /** SUMMARY ORDER INVOICE FUNCTION AND CLASSES **/
+    .m-tradingsg_order .rightPanel .totalOrderAmountLabel {
+        border: 1px solid #ccc;
+        padding:8px;
+        width:61%;
+    }
+
+    .m-tradingsg_order .rightPanel .totalOverallAmountValue {
+        border: 1px solid #ccc;
+        padding:8px;
+        text-align:right;
+        width:61%;
+    }
+
+    .m-tradingsg_order .rightPanel .totalOrderAmountValue,
+    .m-tradingsg_order .rightPanel .totalInvoiceAmountValue,
+    .m-tradingsg_order .rightPanel .totalOutstandingInvoiceAmtValue,
+    .m-tradingsg_order .rightPanel .totalReciptAmountValue {
+        border: 1px solid #ccc;
+        padding:8px;
+        width:233px;
+        background-color:#fff;
+        text-align:right;
+    }       
+
+    .m-tradingsg_order .rightPanel .summaryAmountDetails {
+        background-color: #ededed;
+        border: 1px solid #efefef;
+        margin-top:10px;
+        margin-bottom:10px;         
+        
+    }
+
+    .m-tradingsg_order .rightPanel .summaryTitle {
+        background-color:#dcd9d9 ;
+        height:35px;
+    }   
+
+    .m-tradingsg_order .rightPanel .summaryTitle th {
+        padding-left:6px;
+    }   
+
+        /* QUOTE EDIT LAYOUT CHANGES */
+
+
+  .m-tradingsg_quote #col3 .col3Body .summary .c50l,
+  .m-tradingsg_quote #col3 .col3Body .summary .c50r {
+      width: 100%;
+
+  }
+
+
+  /** TOTAL LABELS FOR ALL THE QUOTE TITLE **/
+  .m-tradingsg_quote.v-edit .clientTitle .type-text label,
+  .m-tradingsg_quote.v-edit .deliveryTermsTitle .type-text label,
+  .m-tradingsg_quote.v-edit .paymentTermsTitle .type-text label,
+  .m-tradingsg_quote.v-edit .deliveryDateTitle .type-text label,
+  .m-tradingsg_quote.v-edit .deliveryLocationTitle .type-select label,
+  .m-tradingsg_quote.v-edit .currencyTextTitle .type-select label,
+  .m-tradingsg_quote.v-edit .notesTitle .type-text label,
+  .m-tradingsg_quote.v-edit .priorityTitle .type-select label,
+  .m-tradingsg_quote.v-edit .quotationCode .type-text label,
+  .m-tradingsg_quote.v-edit .quoteDateTitle .type-text label,
+  .m-tradingsg_quote.v-edit .staffName  .type-select label,
+  .m-tradingsg_quote.v-edit .quoteStatusTitle .type-select label,
+  .m-tradingsg_quote.v-edit .contactPerson .type-select label,
+  .m-tradingsg_quote.v-edit .clientName .type-select label {
+      width: 68%;
+      background-color:rgb(15,145,145);
+      color:#fff;
+      height:15px;
+      padding:7px 11px 8px 5px;
+  }
+
+  /*.m-tradingsg_quote.v-edit .showDiscountTitle .leftCol label {
+      width: 80%;
+      background-color:rgb(15,145,145);
+      color:#fff;
+      border: 2px solid red;
+      height:15px;
+      padding:7px 11px 8px 5px;
+
+  }*/
+
+    .m-tradingsg_quote.v-edit .row_show_discount_percentage .rightCol {
+        margin-top:45px;
+        position: absolute;
+
+    }
+
+
+    .m-tradingsg_quote.v-edit .showDiscountTitle .type-radio .leftCol label {
+      width: 144px;
+      background-color:rgb(15,145,145);
+      padding:7px 11px 8px 5px;
+      color:#fff;
+      height:15px;
+      margin-top: 5px;
+    }  
+
+
+  /** TOTAL ROW WIDTH FOR THE SELECTED TITLE AS BELOW **/
+  .m-tradingsg_quote.v-edit  .clientTitle,
+  .m-tradingsg_quote.v-edit .quotationCode,
+  .m-tradingsg_quote.v-edit .currencyTextTitle,
+  .m-tradingsg_quote.v-edit .quoteStatusTitle,
+  .m-tradingsg_quote.v-edit .quotationType,
+  .m-tradingsg_quote.v-edit .contactPerson,
+  .m-tradingsg_quote.v-edit  .clientName {
+      width: 16%;
+
+  }
+
+  /** DELIVERY DATE, QUOTE DATE & FOLLOW UP DATE ROWS FOR THE LABLE ARE BELOW **/
+  .m-tradingsg_quote.v-edit .deliveryDateTitle .type-text label,
+  .m-tradingsg_quote.v-edit .quoteDateTitle .type-text label,
+  .m-tradingsg_quote.v-edit .followUpDateTitle .type-text label {
+      width: 82%;
+      background-color:rgb(15,145,145);
+      color:#fff;
+      height:15px;
+      padding:7px 11px 8px 5px;
+  }
+
+  /** DROPDOWN ROW FOR ALL SELECT  FIELDS**/
+
+  .m-tradingsg_quote.v-edit .clientName div.type-select select,
+  .m-tradingsg_quote.v-edit .priorityTitle div.type-select select,
+  .m-tradingsg_quote.v-edit .currencyTextTitle div.type-select select,
+  .m-tradingsg_quote.v-edit .deliveryLocationTitle div.type-select select,
+  .m-tradingsg_quote.v-edit .quoteStatusTitle div.type-select select,
+  .m-tradingsg_quote.v-edit .contactPerson  div.type-select select {
+        width:98.9%;
+        margin-top:7px;
+  }
+
+  /** BELOW THE QUOTE TYPE LABELS ARE GIVEN**/
+  .m-tradingsg_quote.v-edit .quotationType  .type-text label {
+      width: 100px;
+      background-color:rgb(15,145,145);
+      color:#fff;
+      height:15px;
+      padding:7px 11px 8px 5px;
+  }
+
+
+  /** QUOTATION CODE VALUE & QUOTATION TYPE VALUE **/
+
+    .m-tradingsg_quote.v-edit .quotationType .type-text div.txt,
+    .yform.edit .form-row-wrapper div.txt,
+    .m-tradingsg_quote.v-edit .quotationCode  .type-text div.txt,
+    .yform.edit .form-row-wrapper div.txt {
+      margin-left:2px;
+      margin-top:40px;
+  }
+
+  /** BELOW THE QUOTE TEXT BOX ARE GIVEN**/
+  .m-tradingsg_quote .linkPortalDataWrapperQuoteEdit table td input[type="text"] {
+        width:89.9%;
+        margin-top:7px;
+
+  }
+
+  /**BELOW THE QUOTE CODE FIELD VALUE IS GIVEN **/
+  .m-tradingsg_quote.v-edit .row_quote_code {
+      top:8px;
+      text-align:left;
+      position:relative;
+  }
+
+  /**BELOW THE QUOTE TYPE FIELD VALUE IS GIVEN**/
+  .m-tradingsg_quote.v-edit .row_quote_type {
+      position:absolute;
+      top:29px;
+      text-align:left;
+  }
+
+  /** DATE PICKER FOR ALL THE DATE IN QUOTE EDIT LAYOUT **/
+    .m-tradingsg_quote .deliveryDateTitle .ui-datepicker-trigger,
+    .m-tradingsg_quote .quoteDateTitle .ui-datepicker-trigger,
+    .m-tradingsg_quote .followUpDateTitle .ui-datepicker-trigger {
+      margin-top: 37px;
+      position:absolute;
+  }
+
+  /** DATE PICKER FOR ALL THE DATE ROW IN QUOTE EDIT LAYOUT **/
+    .m-tradingsg_quote  .row_delivery_date,
+    .m-tradingsg_quote  .row_quote_date,
+    .m-tradingsg_quote  .row_follow_up_date {
+      width:71.5%;
+    }
+
+
+  /** QUOTE DATE IS BELOW **/
+  .m-tradingsg_quote.v-edit .quoteDateTitle .type-text label {
+      width: 82%;
+      background-color:rgb(15,145,145);
+      color:#fff;
+      height:15px;
+      padding:7px 11px 8px 5px;
+  }
+
+  /** DATE PICKER FOR THE DATE IN QUOTE EDIT LAYOUT **/
+    .m-tradingsg_quote .quoteDateTitle .ui-datepicker-trigger {
+      margin-top: 37px;
+      position:absolute;
+  }
+
+  /** COMMON FOR TEXT AREA FIELDS IN QUOTE PAGE **/
+  .m-tradingsg_quote .paymentTermsTitle .type-text textarea,
+  .m-tradingsg_quote .deliveryTermsTitle .type-text textarea,
+  .m-tradingsg_quote .notesTitle .type-text textarea {
+    overflow:auto !important;
+    height:80px !important;
+    width:93.8%;
+    margin-top:7px;
+  }
+
+  /** STAFF NAME FIELD VALUE **/
+    .m-tradingsg_quote.v-edit .staffName  .type-select div.txt,
+    .yform.edit .form-row-wrapper div.txt{
+      margin-left:2px;
+      margin-top:42px;
+  }
+
+  .m-tradingsg_quote .clientNameHeader,
+  .m-tradingsg_quote .clientTitleHeader,
+  .m-tradingsg_quote .quoteStatusHeader {
+    float:left;
+    margin-right:13px;
+    margin-top:0px;
+
+  }
+  .m-tradingsg_quote .clientNameHeader label,
+  .m-tradingsg_quote .clientTitleHeader label,
+  .m-tradingsg_quote .quoteStatusHeader label{
+    float:left;
+    margin-right:13px;
+    color:#0f9191;
+  }
+
+  /** CREATION MODIFICATION TEXT LABEL **/
+  .m-tradingsg_quote .creationModificationText .type-text label  {
+      width:100px !important;
+      background-color: rgb(15, 145, 145);
+      color: #fff;
+      height: 15px;
+      padding: 7px 11px 8px 5px;
+  }
+
+    .m-tradingsg_quote .toggle {
+        display: block;
+    }
+
+    /* Dashboard Changes */
+
+    .m-common_dashboard .widget {
+      margin-bottom: 15px;
+      margin-right: 0px;
+      padding-right: 0;
+    }
+
+    .m-common_dashboard .c50l, .m-common_dashboard .c50r {
+      width: 100%;
+    }
+
+    .m-common_dashboard .widget div.tableOuter {
+        border: 1px solid #ccc4c4;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        height: 360px;
+        overflow: auto;
+    }
+
+    .m-common_dashboard .widget h2 {
+        font-size: 18px;
+        padding: 5px;
+    }
+
+    .m-common_dashboard .widget table th, .m-common_dashboard .widget table td {
+        border: 1px solid #efefef;
+        font-size: 13pt;
+        padding: 0.5em;
+    }
+
+    .ui-widget-header a {
+        font-size: 13pt;
+    }
+
+    .ui-widget-header a:hover,a:focus,a:active {
+        font-size: 13pt;
+    }
+
+    .m-common_dashboard .widget table.thinlist td a {
+        text-decoration: underline;
+        font-size: 13pt;
+    }
+
+    .m-tradingsg_order .gstValueNew,
+    .m-tradingsg_order .gstValue {
+        display : none;
+    }
+
+    .m-tradingsg_order .icgstValueNew,
+    .m-tradingsg_order .icgstValue {
+        display : none;
+    }
+
+
+}

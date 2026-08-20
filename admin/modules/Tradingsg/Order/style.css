@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+@media all
+{
+    .m-tradingsg_order .c50l{
+        width: 38% !important;
+    }
+
+    .m-tradingsg_order .c50r {
+        width: 62% !important;
+    }
+
+    .rcorners2 {
+	    border-radius: 25px;
+	    border: 2px solid #73AD21;
+	    padding: 20px; 
+	    width: 200px;
+	    height: 150px;    
+	}
+}
+
+@media screen and (max-width: 600px) {
+    .m-tradingsg_order .c50l{
+        width: 100% !important;
+    }
+
+    .m-tradingsg_order .c50r {
+        width: 100% !important;
+    }
+  
+}

@@ -1,0 +1,4 @@
+<?
+class CPL_Admin_Widgets_Tradingsg_DailyCollectionChart_Controller extends CP_Common_Lib_WidgetControllerAbstract
+{
+}

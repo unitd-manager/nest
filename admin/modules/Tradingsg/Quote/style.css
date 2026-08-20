@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+@media all
+{
+    .m-tradingsg_quote .toggle {
+        display:block;
+    }
+
+    .m-tradingsg_quote .yform{
+        background-color: #fff;
+        border: 0;
+    }
+
+    .m-tradingsg_quote .c50l,
+    .m-tradingsg_quote .c50r {
+        width: 100% !important;
+    }
+
+    .m-tradingsg_quote .ym-columnar .ym-fbox-text label,
+    .m-tradingsg_quote .ym-columnar .ym-fbox-select label,
+    .m-tradingsg_quote #frmEdit .type-text label,
+    .m-tradingsg_quote #frmEdit .type-select label,
+    .m-tradingsg_quote .type-radio .leftCol,
+    .m-tradingsg_quote .type-radio .rightCol {
+        width: 100% !important;
+    }
+
+    .m-tradingsg_quote #frmEdit .creModdate .type-text label{
+        width: 20%;
+    }
+
+    .m-tradingsg_quote  .linkPortalWrapper div.header,
+    .m-tradingsg_quote  .linkPortalWrapper .linkPortalDataWrapper th{
+        background-color: #F8F8F8;
+    }
+
+    .m-tradingsg_quote.v-edit .btnbackground .button,
+    .m-tradingsg_quote.v-detail .btnbackground .button{
+            display: block;
+            width: 150px;
+            margin-left: 0px;
+    }
+
+    .m-tradingsg_quote.v-edit .btnbackground .actionbtnwidth,
+    .m-tradingsg_quote.v-detail .btnbackground .actionbtnwidth{
+            /*width: auto !important;
+            float: left;*/
+            padding: 2px 14px;
+    }
+
+    .m-tradingsg_quote.v-edit .btnbackground .actionbtnproductcheckedwidth,
+    .m-tradingsg_quote.v-detail .btnbackground .actionbtnproductcheckedwidth{
+            width: 22.3%;
+            float: left;
+    }
+
+    .m-tradingsg_quote.v-edit .actionbtnproductcheckedwidth .button,
+    .m-tradingsg_quote.v-detail .actionbtnproductcheckedwidth .button{
+            display: block;
+            width: 210px;
+    }
+
+    .m-tradingsg_quote.v-edit .btnbackground .actionbtngeneralQuotationwidth{
+            width: 18.3%;
+            float: left;
+    }
+
+    .m-tradingsg_quote.v-edit .actionbtngeneralQuotationwidth .button{
+            width: 62%;
+            display: block;
+    }
+
+    .m-tradingsg_quote.v-edit .btnbackground .actionbtnconvertClientRequirementwidth{
+            width: 20.3%;
+            float: left;
+    }
+
+    .m-tradingsg_quote.v-edit .actionbtnconvertClientRequirementwidth .button{
+            width: 69%;
+    }
+
+    .m-tradingsg_quote.v-edit .staffName  .type-select div.txt,
+    .yform.edit .form-row-wrapper div.txt{
+      margin-left:2px;
+      margin-top:42px;
+    }
+
+    .m-tradingsg_quote .clientNameHeader,
+    .m-tradingsg_quote .clientTitleHeader,
+    .m-tradingsg_quote .quoteStatusHeader {
+        float:left;
+        margin-right:13px;
+        margin-top:0px;
+
+    }
+
+    .m-tradingsg_quote .clientNameHeader label,
+    .m-tradingsg_quote .clientTitleHeader label,
+    .m-tradingsg_quote .quoteStatusHeader label{
+        float:left;
+        margin-right:13px;
+        color:#0f9191;
+    }
+
+.btnbackground .actionbtnwidth {
+    width: 33.3%;
+    float: left;
+}
+
+.btnbackground .btn {
+    display: block;
+    width: 185px;
+    margin-left: 50px;
+}
+}

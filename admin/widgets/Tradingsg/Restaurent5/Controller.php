@@ -1,0 +1,4 @@
+<?
+class CPL_Admin_Widgets_Tradingsg_Restaurent5_Controller extends CP_Common_Lib_WidgetControllerAbstract
+{
+}

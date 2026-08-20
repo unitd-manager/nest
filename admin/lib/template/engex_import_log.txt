@@ -1,0 +1,22 @@
+
+            UPDATE product SET price_from_supplier='', price='', member_only=1, modification_date='2017-09-23 18:34:21', modified_by='Administrator'
+            WHERE part_number = '';
+            
+            UPDATE product SET price_from_supplier='', price='', member_only=1, modification_date='2017-09-23 18:34:21', modified_by='Administrator'
+            WHERE part_number = '';
+            
+            UPDATE product SET price_from_supplier='', price='', member_only=1, modification_date='2017-09-23 18:34:21', modified_by='Administrator'
+            WHERE part_number = '';
+            
+            UPDATE product SET price_from_supplier='', price='', member_only=1, modification_date='2017-09-23 18:34:21', modified_by='Administrator'
+            WHERE part_number = '';
+            
+            UPDATE product SET price_from_supplier='', price='', member_only=1, modification_date='2017-09-23 18:34:21', modified_by='Administrator'
+            WHERE part_number = '';
+            
+            UPDATE product SET price_from_supplier='', price='', member_only=1, modification_date='2017-09-23 18:34:21', modified_by='Administrator'
+            WHERE part_number = '';
+            
+            UPDATE product SET price_from_supplier='', price='', member_only=1, modification_date='2017-09-23 18:34:21', modified_by='Administrator'
+            WHERE part_number = '';
+            

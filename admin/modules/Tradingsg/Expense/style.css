@@ -1,0 +1,25 @@
+@charset "UTF-8";
+@media all
+{
+
+	.m-tradingsg_expense .cpSearch input[type="text"]{
+	    max-width: 200px !important;
+	    width: 100px !important;
+	}
+
+	.cpSearch .dateRange {
+	    width: 400px !important;
+	}
+
+    .m-tradingsg_expense .c50l,
+    .m-tradingsg_expense .c50r {
+        width: 100%;
+    }
+
+    .m-tradingsg_expense .ym-columnar .ym-fbox-text label,
+    .m-tradingsg_expense .ym-columnar .ym-fbox-select label,
+    .m-tradingsg_expense #frmEdit .type-text label,
+    .m-tradingsg_expense #frmEdit .type-select label {
+        width: 100%;
+    }
+}

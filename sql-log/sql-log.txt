@@ -1,0 +1,1390 @@
+Run the below code in the browser to enable new module */
+===========================================================
+http://cubobillpro.localhost/admin/index.php?module=core_userGroup&_spAction=createAccessRecords
+http://cubobillpro.cubosale.com/admin/index.php?module=core_userGroup&_spAction=createAccessRecords
+http://tradingdemo.usscrm.com/admin/index.php?module=core_userGroup&_spAction=createAccessRecords
+
+// ======== ARIF - 29/12/2012 =============== //
+INSERT INTO valuelist (`key_text`, `value`, `creation_date`) VALUES
+('paymentType', 'Cash', NOW()),
+('paymentType', 'Cheque', NOW()),
+('paymentType', 'Credit Card', NOW()),
+('paymentType', 'GIRO', NOW());
+
+INSERT INTO valuelist (`key_text`, `value`, `creation_date`) VALUES
+('invoiceStatus', 'Due', NOW()),
+('invoiceStatus', 'Paid', NOW()),
+('invoiceStatus', 'Late', NOW());
+
+CREATE TABLE IF NOT EXISTS `invoice` (
+  `invoice_id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_code` varchar(50) DEFAULT NULL,
+  `invoice_amount` int(11) DEFAULT NULL,
+  `invoice_date` date DEFAULT NULL,
+  `mode_of_payment` varchar(50) DEFAULT NULL,
+  `status` varchar(25) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `staff_id` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `flag` int(1) DEFAULT NULL,
+  PRIMARY KEY (`invoice_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('nextInvoiceCode', '10000', 'Using this number invoice code is generated', 'Number Field', NOW(), 1);
+
+ALTER TABLE `invoice` ADD `created_by` VARCHAR( 255 ) NULL;
+
+// ======== SYED - 1/1/2013 =============== //
+
+CREATE TABLE IF NOT EXISTS `enquiry` (
+  `enquiry_id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `company` varchar(255) DEFAULT NULL,
+  `comments` text,
+  `country` varchar(255) DEFAULT NULL,
+  `enquiry_type` varchar(255) DEFAULT NULL,
+  `subject` varchar(500) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `address_country` varchar(255) DEFAULT NULL,
+  `fax` varchar(200) DEFAULT NULL,
+  `notes` text,
+  `modification_date` datetime DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'New',
+  `follow_up_date` date DEFAULT NULL,
+  `flag` tinyint(4) DEFAULT NULL,
+  `phone` int(11) DEFAULT NULL,
+  `preferred_contact` varchar(255) DEFAULT NULL,
+  `preferred_time` varchar(255) DEFAULT NULL,
+  `phone_area_code` int(11) DEFAULT NULL,
+  `staff_id` int(11) DEFAULT NULL,
+  `client_type` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`enquiry_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `enquiry` CHANGE `company` `company_id` INT( 1 ) NULL DEFAULT NULL;
+
+// ======== ARIF - 2/1/2013 =============== //
+ALTER TABLE `discount` ADD `product_group` VARCHAR( 255 ) NULL ,
+ADD `margin` VARCHAR( 20 ) NULL;
+
+// ======== ARIF - 3/1/2013 =============== //
+CREATE TABLE IF NOT EXISTS `invoice_item` (
+  `invoice_item_id` int(10) NOT NULL AUTO_INCREMENT,
+  `invoice_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `record_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `qty` int(10) unsigned NOT NULL DEFAULT '0',
+  `unit_price` decimal(10,2) DEFAULT '0.00',
+  `item_title` varchar(255) DEFAULT NULL,
+  `colours` varchar(255) NOT NULL,
+  `module` varchar(50) DEFAULT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`invoice_item_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+// ======== ARIF - 4/1/2013 =============== //
+CREATE TABLE IF NOT EXISTS `invoice_receipt_history` (
+  `invoice_receipt_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_id` int(11) DEFAULT NULL,
+  `receipt_id` int(11) DEFAULT NULL,
+  `published` tinyint(4) DEFAULT NULL,
+  `flag` tinyint(4) NOT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  PRIMARY KEY (`invoice_receipt_history_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `order_item` ADD `invoice_id` INT( 11 ) NULL;
+
+CREATE TABLE IF NOT EXISTS `receipt` (
+  `receipt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `receipt_code` varchar(55) DEFAULT NULL,
+  `amount` float(10,2) DEFAULT NULL,
+  `mode_of_payment` varchar(55) DEFAULT NULL,
+  `remarks` text,
+  `date` datetime DEFAULT NULL,
+  `published` tinyint(4) DEFAULT NULL,
+  `flag` tinyint(4) NOT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `receipt_status` varchar(100) NOT NULL,
+  `cheque_date` date DEFAULT NULL,
+  `bank_name` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`receipt_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+// ======== ARIF - 5/1/2013 =============== //
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('nextReceiptCode', '1000', 'Using this number receipt code is generated', 'Number Field', NOW(), 1);
+
+ALTER TABLE `company` ADD `discount_percent` DECIMAL( 10, 2 ) NULL ,
+ADD `cst_no` INT( 20 ) NULL ,
+ADD `tin_no` INT( 20 ) NULL;
+
+// ======== SYED - 5/1/2013 =============== //
+ALTER TABLE `order` ADD `company_id` INT( 11 ) NULL ;
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('printFooter', 'Address', 'To Print the Address in Footer PDF', 'Text Field', NOW(), 1);
+ALTER TABLE `purchase_order` ADD `delivery_date` DATE NULL ;
+ALTER TABLE `quote_product` ADD `serial_no` INT( 11 ) NULL ;
+ALTER TABLE `quote_product` ADD `discount_percentage` DECIMAL( 10, 2 ) NULL;
+
+// ======== ARIF - 10/1/2013 =============== //
+ALTER TABLE `order` ADD `add_gst_to_total` TINYINT( 4 ) NULL;
+
+// ======== ARIF - 11/1/2013 =============== //
+CREATE TABLE IF NOT EXISTS `expense` (
+  `expense_id` int(11) NOT NULL AUTO_INCREMENT,
+  `quote_id` int(10) DEFAULT NULL,
+  `description` text,
+  `amount` float(10,2) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `flag` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`expense_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+// ======== ARIF - 12/1/2013 =============== //
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('amtForGSTCalc', '7', 'Amount to be calculated for GST', 'Text Field', NOW(), 1);
+
+// ======== SYED - 20/03/2013 =============== //
+ALTER TABLE `enquiry` ADD `enquiry_code` VARCHAR( 50 ) NULL;
+DROP TABLE `discount`;
+CREATE TABLE IF NOT EXISTS `discount` (
+  `discount_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_type` varchar(100) DEFAULT NULL,
+  `discount_percent` float(10,2) DEFAULT NULL,
+  `flag` tinyint(4) NOT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `margin` float(10,2) DEFAULT NULL,
+  `product_group_id` int(11) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`discount_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `discount_finance` (
+  `discount_finance_id` int(11) NOT NULL AUTO_INCREMENT,
+  `discount_id` int(11) DEFAULT NULL,
+  `customer_type` varchar(100) DEFAULT NULL,
+  `discount_percent` float(10,2) DEFAULT NULL,
+  `flag` tinyint(4) DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `modified_by` varchar(255) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `margin` float(10,2) DEFAULT NULL,
+  `product_group_id` int(11) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`discount_finance_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('cp.addressPdf1', '10 Jalan Besar #17-02', 'Pdf Address 1', 'Text Field', NOW(), 1),
+('cp.addressPdf2', 'TEL: +65 6666 6666 FAX: +65 6666 6666', 'Pdf Address 2', 'Text Field', NOW(), 1),
+('cp.addressPdf3', 'EMAIL: syed@usoftsolutions.com', 'Pdf Address 3', 'Text Field', NOW(), 1),
+('cp.addressPdf4', 'WEBSITE: www.usscrm.com', 'Pdf Address 4', 'Text Field', NOW(), 1),
+('cp.addressPdf5', 'GST REG. NO: ', 'Pdf Address 5', 'Text Field', NOW(), 1);
+
+// ======== Fayas- 20/03/2013 =============== //
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('enquiryCodePrefix', 'ENQ-', 'Enquiry Code Prefix', 'Text Field', NOW(), 1),
+('nextEnquiryCode', '1000', 'Next Enquiry Code', 'Text Field', NOW(), 1);
+
+ALTER TABLE `enquiry` CHANGE `status` `status` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;
+
+// ======== Shafeeq - 30/3/2013 =============== //
+ALTER TABLE `discount` ADD `company_id` INT( 11 ) NULL ;
+ALTER TABLE `discount` CHANGE `product_group` `product_group_id` INT( 11 ) NULL DEFAULT NULL ;
+ALTER TABLE `discount` ADD `category_id` INT( 11 ) NULL ;
+
+// ======== Thamim - 30/3/2013 =============== //
+ALTER TABLE `company` CHANGE `discount_percent` `mark_up_percentage` DECIMAL( 10, 2 ) NULL DEFAULT NULL ;
+
+// ======== Thamim - 1/4/2013 =============== //
+ALTER TABLE `quote_product` ADD `delivery_status` VARCHAR( 100 ) NULL ;
+
+// ======== Moin - 22/4/2013 =============== //
+ALTER TABLE `order_item` ADD `qty_for_invoice` INT( 10 ) NOT NULL DEFAULT '0';
+
+ALTER TABLE `invoice_item` ADD `cost_price` DECIMAL( 10, 2 ) NOT NULL DEFAULT '0.00';
+
+ALTER TABLE `invoice` ADD `invoice_type` VARCHAR( 100 ) NULL;
+
+#======== Syed - 28/5/2013 =============== //
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('cp.staffNameInPO', 'Mr Syed', 'Staff Name in PDF', 'Text Field', NOW(), 1);
+
+#======== Arif - 29/5/2013 =============== //
+INSERT INTO valuelist (`key_text`, `value`, `creation_date`) VALUES
+('deliveryLocation', 'Location 1', NOW()),
+('deliveryLocation', 'Location 2', NOW()),
+('deliveryLocation', 'Location 3', NOW());
+
+ALTER TABLE `invoice` ADD `purchase_order_id` INT( 11 ) NULL;
+ALTER TABLE `invoice` ADD `invoice_type` VARCHAR( 200 ) NULL;
+
+#======== Moin - 3/6/2013 =============== //
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('cp.addressPdf1', '10 Jalan Besar, #17-02 Sim Lim Tower, Singapore - 208787', 'Pdf Address 1', 'Text Field', NOW(), 1),
+('cp.addressPdf2', 'TEL: +66 666 66 666 FAX: +66 666 66 666', 'Pdf Address 2', 'Text Field', NOW(), 1),
+('cp.addressPdf3', 'EMAIL: info@usoftsolutions.com', 'Pdf Address 3', 'Text Field', NOW(), 1),
+('cp.addressPdf4', 'WEBSITE: www.usoftsolutions.com', 'Pdf Address 4', 'Text Field', NOW(), 1);
+
+#======== Arif - 07/06/2013 =============== //
+INSERT INTO valuelist (`key_text`, `value`, `creation_date`) VALUES
+('companyStatus', 'Highly secure', NOW()),
+('companyStatus', 'Authentic', NOW()),
+('supplierType', 'Bulk Order', NOW()),
+('supplierType', 'Small Order', NOW()),
+('companyIndustry', 'Fully Automatic', NOW()),
+('companyIndustry', 'Partly Automatic', NOW()),
+('companySize', 'Large', NOW()),
+('companySize', 'Small', NOW()),
+('companySource', 'Direct', NOW()),
+('companySource', 'Referrel', NOW());
+
+ALTER TABLE `invoice_item` ADD `order_item_id` INT( 11 ) NULL;
+
+#======== Syed - 08/06/2013 ===============
+ALTER TABLE `quote_product` ADD `mark_up_type` VARCHAR( 100 ) NULL;
+ALTER TABLE `order_item` ADD `mark_up_type` VARCHAR( 100 ) NULL;
+
+#======== Fayas - 08/06/2013 ===============
+CREATE TABLE IF NOT EXISTS `stock_history` (
+  `stock_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) DEFAULT NULL,
+  `sub_category_id` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `product_code` varchar(50) DEFAULT NULL,
+  `description` text,
+  `qty_in_stock` int(11) DEFAULT '0',
+  `price` float(10,2) DEFAULT NULL,
+  `published` int(1) DEFAULT NULL,
+  `member_only` int(1) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `chi_title` varchar(255) DEFAULT NULL,
+  `chi_description` text,
+  `sort_order` int(11) DEFAULT '0',
+  `meta_title` varchar(500) DEFAULT NULL,
+  `meta_description` text,
+  `meta_keyword` text,
+  `latest` int(1) DEFAULT NULL,
+  `description_short` text,
+  `chi_description_short` text,
+  `general_quotation` int(1) DEFAULT NULL,
+  `unit` varchar(100) DEFAULT NULL,
+  `product_group_id` int(11) DEFAULT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `item_code` varchar(50) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`stock_history_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `stock_history_company` (
+  `stock_history_company_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stock_history_id` int(11) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`stock_history_company_id`),
+  UNIQUE KEY `product_company_unique` (`stock_history_id`,`company_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `batch_import` (
+  `batch_import_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `batch_date` date DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`batch_import_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `batch_import` ADD `flag` TINYINT( 4 ) NULL ;
+
+CREATE TABLE IF NOT EXISTS `batch_history` (
+  `batch_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) DEFAULT NULL,
+  `sub_category_id` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `product_code` varchar(50) DEFAULT NULL,
+  `description` text,
+  `qty_in_stock` int(11) DEFAULT '0',
+  `price` float(10,2) DEFAULT NULL,
+  `published` int(1) DEFAULT NULL,
+  `member_only` int(1) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `chi_title` varchar(255) DEFAULT NULL,
+  `chi_description` text,
+  `sort_order` int(11) DEFAULT '0',
+  `meta_title` varchar(500) DEFAULT NULL,
+  `meta_description` text,
+  `meta_keyword` text,
+  `latest` int(1) DEFAULT NULL,
+  `description_short` text,
+  `chi_description_short` text,
+  `general_quotation` int(1) DEFAULT NULL,
+  `unit` varchar(100) DEFAULT NULL,
+  `product_group_id` int(11) DEFAULT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `item_code` varchar(50) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`batch_history_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `batch_history_company` (
+  `batch_history_company_id` int(11) NOT NULL AUTO_INCREMENT,
+  `batch_history_id` int(11) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`batch_history_company_id`),
+  UNIQUE KEY `product_company_unique` (`batch_history_id`,`company_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+#======== Fayas - 10/06/2013 ===============
+ALTER TABLE `batch_history` ADD `batch_import_id` INT( 11 ) NULL ;
+ALTER TABLE `batch_history` ADD `module` VARCHAR( 50 ) NULL ;
+
+#======== Fayas - 11/06/2013 ===============
+ALTER TABLE `batch_history` ADD `company_id` INT( 11 ) NULL ;
+
+#======== Fayas - 13/06/2013 ===============
+ALTER TABLE `batch_history` ADD `qty` INT( 11 ) NULL ;
+
+DROP TABLE `batch_history_company` ;
+
+ALTER TABLE `batch_import` ADD `freight_cost` INT( 11 ) NULL ,
+ADD `status` VARCHAR( 50 ) NULL ;
+
+INSERT INTO valuelist (`key_text`, `value`, `creation_date`) VALUES
+('batchImportStatus', 'Paid', NOW()),
+('batchImportStatus', 'Due', NOW()),
+('batchImportStatus', 'Cancelled', NOW());
+
+#======== Shafeeq - 13/06/2013 ===============
+CREATE TABLE IF NOT EXISTS `mod_acc_room` (
+  `room_id` int(11) NOT NULL AUTO_INCREMENT,
+  `list` int(1) DEFAULT NULL,
+  `detail` int(1) DEFAULT NULL,
+  `new` int(1) DEFAULT NULL,
+  `edit` int(1) DEFAULT NULL,
+  `delete` int(1) DEFAULT NULL,
+  `duplicate` int(1) DEFAULT NULL,
+  `search` int(1) DEFAULT NULL,
+  `print` int(1) DEFAULT NULL,
+  `publish` int(1) DEFAULT NULL,
+  `unpublish` int(1) DEFAULT NULL,
+  `room_name` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `title` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `import` tinyint(4) NOT NULL DEFAULT '0',
+  `export` tinyint(4) NOT NULL DEFAULT '0',
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`room_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `mod_acc_room_user_group` (
+  `room_user_group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `room_id` int(11) DEFAULT NULL,
+  `list` int(1) DEFAULT NULL,
+  `detail` int(1) DEFAULT NULL,
+  `new` int(1) DEFAULT NULL,
+  `edit` int(1) DEFAULT NULL,
+  `delete` int(1) DEFAULT NULL,
+  `duplicate` int(1) DEFAULT NULL,
+  `print` int(1) DEFAULT NULL,
+  `publish` int(1) DEFAULT NULL,
+  `unpublish` int(1) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `user_group_id` int(11) DEFAULT NULL,
+  `room_title` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `import` tinyint(4) NOT NULL DEFAULT '0',
+  `export` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`room_user_group_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `mod_acc_other_action` (
+  `other_action_id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(250) CHARACTER SET utf8 DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `title` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `has_new` int(11) DEFAULT NULL,
+  `has_find` int(11) DEFAULT NULL,
+  `is_global` int(11) DEFAULT NULL,
+  `has_detail` int(11) DEFAULT NULL,
+  `has_list` int(11) DEFAULT NULL,
+  `action_type` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `room_id` int(11) DEFAULT NULL,
+  `has_modify` int(11) DEFAULT NULL,
+  `action_name` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `is_hideable` int(11) DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`other_action_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `mod_acc_user_group_other_action` (
+  `user_group_other_action_id` int(11) NOT NULL AUTO_INCREMENT,
+  `other_action_id` int(11) DEFAULT NULL,
+  `user_group_id` int(11) DEFAULT NULL,
+  `has_access` int(1) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`user_group_other_action_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+#======== Moin - 20/06/2013 ===============
+ALTER TABLE `quote_product` ADD `discount_type` VARCHAR( 100 ) NULL ;
+
+#======== Arif - 21/06/2013 ===============
+ALTER TABLE `invoice` ADD `invoice_due_date` DATE NULL ,
+ADD `invoice_terms` TEXT NULL ,
+ADD `notes` TEXT NULL;
+
+ALTER TABLE `order` ADD `invoice_terms` TEXT NULL ,
+ADD `notes` TEXT NULL;
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('cp.addressPdf5', 'GST Reg. NO: 201116006H', 'Pdf Address 5', 'Number Field', NOW(), 1);
+
+#======== Moin - 25/06/2013 ===============
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('countryForCurrency', 'India', 'Using this country the currency code is shown in quote', 'Text', NOW(), 1);
+
+#======== Syed - 26/06/2013 ===============
+ALTER TABLE `product` ADD `part_number` VARCHAR( 255 ) NULL;
+
+#======== Arif - 26/06/2013 ===============
+ALTER TABLE `product` ADD `price_from_supplier` DECIMAL( 10, 2 ) NULL;
+ALTER TABLE `order_item` ADD `part_number` VARCHAR( 255 ) NULL;
+ALTER TABLE `invoice_item` ADD `part_number` VARCHAR( 255 ) NULL;
+
+#======== Fayas - 26/06/2013 ===============
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('cp.addressPdf6', 'CST NO. : R1145614', 'CST NO. for PDF', 'Text', NOW(), 1),
+('cp.addressPdf7', 'TIN NO. : H5645644', 'TIN NO. for PDF', 'Text', NOW(), 1);
+
+#======== Fayas - 29/06/2013 ===============
+ALTER TABLE `invoice` ADD `cst` INT( 1 ) NULL ,
+ADD `vat` INT( 1 ) NULL ;
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('printCstinInvoice', '2', 'Amount to be calculated for CST', 'Text', NOW(), 1),
+('printCstText', 'CST', 'Text to be displayed for CST', 'Text', NOW(), 1);
+
+#======== Thamim - 05/07/2013 ===============
+ALTER TABLE `quote` ADD `cst` INT( 1 ) NULL ;
+ALTER TABLE `quote` ADD `vat` INT( 1 ) NULL ;
+
+#======== Shafeeq - 13/07/2013 ===============
+ALTER TABLE `enquiry` CHANGE `phone` `phone` VARCHAR( 25 ) NULL DEFAULT NULL ;
+
+#======== Moin - 09/07/2013 ===============
+ALTER TABLE `quote_product` ADD `price_from_supplier` DECIMAL( 10, 2 ) NULL DEFAULT '0.00';
+
+#======== Fayas - 11/07/2013 ===============
+ALTER TABLE `company` ADD `add_vat` INT( 1 ) NULL ;
+ALTER TABLE `company` ADD `add_cst` INT( 1 ) NULL ;
+ALTER TABLE `company` ADD `add_freight_cost` INT( 1 ) NULL ;
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('printFrieghtCostforSupplier', '3', 'Amount to be calculated for Freight Cost', 'Text', NOW(), 1),
+('printFrieghtCostforSupplierText', 'FREIGHT COST', 'Text to be displayed for Freight Cost', 'Text', NOW(), 1);
+
+#======== Shafeeq - 30/9/2013 ===============
+INSERT INTO `setting` (`key_text`, `value`, `creation_date`) VALUES ('cp.bankDetails',
+'HDFC BANK LTD
+NO.9, MOSQUE STREET
+PALLAVARAM, CHENNAI-600043
+CURRENT A/C:50200000741296', NOW());
+
+#======== Fayas - 18/07/2013 ===============
+ALTER TABLE `invoice` ADD `frieght` INT( 11 ) NULL ,
+ADD `p_f` INT( 11 ) NULL ;
+
+#======== Thamim - 05/08/2013 ===============
+ALTER TABLE `company` ADD `vat` DECIMAL( 10, 2 ) NULL ;
+ALTER TABLE `company` ADD `cst` DECIMAL( 10, 2 ) NULL ;
+ALTER TABLE `company` ADD `p_f` DECIMAL( 10, 2 ) NULL ;
+
+#======== Moin - 30/07/2013 ===============
+ALTER TABLE `po_product` DROP `invoice_id` ;
+ALTER TABLE `invoice_item` ADD `po_product_id` INT( 11 ) NULL ;
+
+#======== Shafeeq - 03/08/2013 ===============
+CREATE TABLE IF NOT EXISTS `product_group_staff` (
+  `product_group_staff_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_group_id` int(11) DEFAULT NULL,
+  `staff_id` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`product_group_staff_id`),
+  KEY `cars_id` (`product_group_id`),
+  KEY `product_id` (`staff_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+#======== Syed - 10/08/2013 ===============
+ALTER TABLE `purchase_order` ADD `freight_cost` INT( 11 ) NULL;
+
+
+#======== Thamim - 12/08/2013 ===============
+ALTER TABLE `invoice` ADD `vat_value` DECIMAL( 10, 2 ) NULL ;
+ALTER TABLE `invoice` ADD `cst_value` DECIMAL( 10, 2 ) NULL ;
+ALTER TABLE `company` ADD `add_pf` INT( 1 ) NULL ;
+
+#======== Syed - 15/08/2013 ===============
+CREATE TABLE IF NOT EXISTS `call_registry` (
+  `call_registry_id` int(11) NOT NULL AUTO_INCREMENT,
+  `phone` varchar(50) DEFAULT NULL,
+  `fax` varchar(50) DEFAULT NULL,
+  `mobile` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `company_address` text,
+  `industry` varchar(255) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  `contact_date` date DEFAULT NULL,
+  `contact_time` time DEFAULT NULL,
+  `follow_up_date` date DEFAULT NULL,
+  `description` text,
+  `staff_id` int(11) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `published` tinyint(4) DEFAULT NULL,
+  `flag` tinyint(4) NOT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `enquiry_type` varchar(155) DEFAULT NULL,
+  `reminder` tinyint(1) DEFAULT NULL,
+  `reffer` varchar(155) DEFAULT NULL,
+  `requirements` text,
+  `call_registry_code` varchar(20) DEFAULT NULL,
+  `company_name` varchar(255) DEFAULT NULL,
+  `contact_name` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `other_industry` varchar(255) DEFAULT NULL,
+  `job_title` varchar(255) DEFAULT NULL,
+  `alternate_phone` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`call_registry_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `company` CHANGE `cst_no` `cst_no` VARCHAR( 25 ) NULL DEFAULT NULL ;
+ALTER TABLE `company` CHANGE `tin_no` `tin_no` VARCHAR( 25 ) NULL DEFAULT NULL ;
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('leadsPrefix', 'LD-', 'The prefix used for the Leads code in Leads', 'Text Field', NOW(), 1),
+('nextLeadsCode', '1', 'The prefix used for the Leads code in Leads', 'Text Field', NOW(), 1);
+
+INSERT INTO `valuelist` (`key_text`, `value`, `chi_value`, `creation_date`, `modification_date`, `sort_order`, `is_group_heading`, `code`, `flag`) VALUES
+('callRegistryStatus', 'Not Interested', NULL, '2012-10-08', '2012-10-08', 90, NULL, NULL, NULL),
+('callRegistryStatus', 'Follow up', NULL, '2012-10-08', '2012-10-08', 91, NULL, NULL, NULL),
+('callRegistryStatus', 'High Win Ratio', NULL, '2012-10-08', '2012-10-08', 93, NULL, NULL, NULL),
+('callRegistryStatus', 'Converted to Sales', NULL, '2012-10-08', '2012-10-08', 94, NULL, NULL, NULL),
+('callRegistryReffer', 'Advertisement', NULL, '2012-10-08', '2012-10-08', 95, NULL, NULL, NULL),
+('callRegistryReffer', 'Website', NULL, '2012-10-08', '2012-10-08', 96, NULL, NULL, NULL),
+('callRegistryReffer', 'Directory', NULL, '2012-10-08', '2012-10-08', 96, NULL, NULL, NULL),
+('callRegistryReffer', 'Refferal', NULL, '2012-10-08', '2012-10-08', 97, NULL, NULL, NULL),
+('callRegistryCategory', 'Tele Call', NULL, '2012-10-08', '2012-10-08', 97, NULL, NULL, NULL),
+('callRegistryCategory', 'Direct Meeting', NULL, '2012-10-08', '2012-10-08', 97, NULL, NULL, NULL),
+('callRegistryIndustry', 'Automotive Industry', NULL, '2012-10-08', '2012-10-08', 97, NULL, NULL, NULL),
+('callRegistryIndustry', 'Pharmaceautical', NULL, '2012-10-08', '2012-10-08', 97, NULL, NULL, NULL),
+('callRegistryIndustry', 'Medical', NULL, '2012-10-08', '2012-10-08', 97, NULL, NULL, NULL);
+
+#======== THAMIM - 22/08/2013 ===============
+ALTER TABLE `enquiry` ADD `staff_allocation` VARCHAR( 100 ) NULL ;
+
+#======== THAMIM - 23/08/2013 ===============
+CREATE TABLE IF NOT EXISTS `enquiry_product_group` (
+  `enquiry_product_group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_group_id` int(11) DEFAULT NULL,
+  `enquiry_id` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`enquiry_product_group_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+#======== SYED - 23/08/2013 ===============
+ALTER TABLE `enquiry` CHANGE `staff_allocation` `staff_allocation` INT( 11 ) NULL DEFAULT NULL;
+
+#======== MOIN - 29/08/2013 ===============
+CREATE TABLE IF NOT EXISTS `staff_attendance` (
+  `staff_attendance_id` int(11) NOT NULL AUTO_INCREMENT,
+  `staff_id` int(11) DEFAULT NULL,
+  `record_date` date DEFAULT NULL,
+  `time_in` time DEFAULT NULL,
+  `leave_time` time DEFAULT NULL,
+  `notes` text,
+  `description` text,
+  `on_leave` int(11) DEFAULT NULL,
+  `flag` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `site_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`staff_attendance_id`),
+  KEY `staff_id` (`staff_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `staff_attendance` ADD `type_of_leave` VARCHAR( 100 ) NULL ;
+
+ALTER TABLE `staff` ADD `staff_login_type` VARCHAR( 50 ) NULL ;
+
+#======== SYED - 28/08/2013 ===============
+ALTER TABLE `enquiry` CHANGE `company_id` `company_id` INT( 11 ) NULL DEFAULT NULL;
+
+#======== THAMIM - 24/09/2013 ===============
+ALTER TABLE `enquiry` ADD `call_registry_id` INT( 11 ) NULL ;
+ALTER TABLE `call_registry` ADD `comments` TEXT NULL ;
+
+#======== SYED - 24/09/2013 ===============
+ALTER TABLE `order_item` ADD `price_from_supplier` DECIMAL( 10, 2 ) NULL DEFAULT NULL ;
+
+#======== SYED - 24/09/2013 ===============
+ALTER TABLE `purchase_order` CHANGE `status` `status` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';
+
+#======== THAMIM - 04/10/2013 ===============
+ALTER TABLE `order` ADD `shipping_address_country` VARCHAR( 255 ) NULL ;
+
+#======== SHAFEEQ - 02/12/2013 ===============
+ALTER TABLE `quote_product` ADD `notes` TEXT NULL ;
+
+#======== MOIN - 12/12/2013 ===============
+CREATE TABLE IF NOT EXISTS `product_price_history` (
+  `product_price_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) DEFAULT NULL,
+  `price_from_supplier` float(10,2) DEFAULT NULL,
+  `list_price` float(10,2) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`product_price_history_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+#======== THAMIM - 10/12/2013 ===============
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('printBestRegards', 'Best Regards,', 'Print Best Regards', 'Text Field', NOW(), 1);
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('printEngexPower', 'Engex Power', 'Print Engex Power', 'Text Field', NOW(), 1);
+
+ALTER TABLE `purchase_order` CHANGE `status` `status` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';
+
+#======== MOIN - 26/12/2013 ===============
+ALTER TABLE `product` ADD INDEX ( `category_id` ) ;
+ALTER TABLE `product` ADD INDEX ( `sub_category_id` ) ;
+ALTER TABLE `product` ADD INDEX ( `product_group_id` ) ;
+
+ALTER TABLE `quote` ADD `show_discount_percentage` INT( 1 ) NULL;
+
+#======== SHAFEEQ - 19/02/2014 ===============
+CREATE TABLE IF NOT EXISTS `supplier_order` (
+  `supplier_order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `so_code` varchar(25) DEFAULT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `flag` int(1) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`supplier_order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+#======== SHAFEEQ - 21/02/2014 ===============
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('soCodePrefix', 'SO-', 'Supplier Order Code Prefix', 'Text Field', NOW(), 1),
+('nextSoCode', '1000', 'Next Supplier Order Code', 'Text Field', NOW(), 1);
+
+ALTER TABLE `supplier_order` ADD `created_by` VARCHAR( 100 ) NULL ,
+ADD `modified_by` VARCHAR( 100 ) NULL ;
+
+#======== SHAFEEQ - 12/03/2014 ===============
+CREATE TABLE IF NOT EXISTS `supplier_order_history` (
+  `supplier_order_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `supplier_order_id` int(11) DEFAULT NULL,
+  `purchase_order_id` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`supplier_order_history_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `po_product` ADD `supplier_order_id` INT( 11 ) NULL ;
+
+#======== SHAFEEQ - 14/03/2014 ===============
+ALTER TABLE `invoice` ADD `frieght_cost` DECIMAL( 10, 2 ) NULL ;
+
+#======== THAMIM - 23/04/2014 ===============
+ALTER TABLE `order` ADD `cust_company_name` VARCHAR (255) NULL ;
+
+#======== THAMIM - 19/05/2014 ===============
+UPDATE setting SET value = 'Authorised Signatory,' WHERE value = 'Best Regards,' AND key_text = 'printBestRegards';
+
+ALTER TABLE `invoice` ADD `cust_po_no` VARCHAR(255) NULL;
+
+#======== MOIN - 22/06/2017 ===============
+ALTER TABLE `invoice` ADD `gst` INT(1) NULL ,
+ADD `gst_value` DECIMAL(10,2) NULL ;
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('printGstText', 'GST', 'Text to be displayed for GST', 'Text Field', NOW(), 1),
+('printGstinInvoice', '5', 'Amount to be calculated for GST', 'Number Field', NOW(), 1);
+
+
+#======== MOIN - 29/06/2017 ===============
+ALTER TABLE `company` ADD `gst_no` VARCHAR(25) NULL ;
+
+#======== MOIN - 03/07/2017 ===============
+ALTER TABLE `invoice` CHANGE `gst` `sgst` INT(1) NULL DEFAULT NULL;
+ALTER TABLE `invoice` CHANGE `gst_value` `sgst_value` DECIMAL(10,2) NULL DEFAULT NULL;
+
+ALTER TABLE `invoice` ADD `igst_cgst` VARCHAR(100) NULL ,
+ADD `igst_cgst_value` DECIMAL(10,2) NULL ;
+
+ALTER TABLE `product` ADD `hsn` VARCHAR(100) NULL ;
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('printICGstinInvoice', '9', 'Amount to be calculated for IGST/CGST', 'Number Field', NOW(), 1);
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('cp.addressGSTNo', 'GST No.: 33AAEFE0177G1ZT', 'GST Number', 'Text Field', NOW(), 1);
+
+#======== ANSARI - 21/09/2017 ===============
+ALTER TABLE `order` ADD link_stock INT(1);
+ALTER TABLE `order` ADD `vat` DECIMAL( 10, 2 ) NULL;
+ALTER TABLE `order` ADD `name_of_company` VARCHAR( 100 ) NULL;
+ALTER TABLE `order_item` ADD `discount_type` VARCHAR( 100 ) NULL ;
+ALTER TABLE `order` ADD `discount` DECIMAL( 10, 2 ) NOT NULL DEFAULT '0';
+ALTER TABLE `invoice` ADD `discount` DECIMAL( 10, 2 ) NOT NULL DEFAULT '0';
+
+ALTER TABLE `product` ADD model varchar(255) NULL,
+ADD carton_no varchar(255) NULL,
+ADD batch_no varchar(255) NULL,
+ADD vat decimal(10,2) NULL;
+
+ALTER TABLE `order_item` ADD model varchar(255) NULL,
+ADD item_code varchar(255) NULL,
+ADD ref_code  varchar(255) NULL,
+ADD vat decimal(10,2) NULL;
+
+ALTER TABLE `product` ADD damaged_qty int(11) NULL;
+
+ALTER TABLE `invoice_item` ADD model varchar(255) NULL,
+ADD item_code varchar(255) NULL,
+ADD vat decimal(10,2) NULL,
+ADD discount_percentage decimal(10,2) NULL,
+ADD discount_type varchar(100) NULL;
+
+ALTER TABLE `invoice` ADD invoice_code_vat  int(50) NULL;
+
+ALTER TABLE `order` ADD `created_by` varchar(255) DEFAULT NULL,
+ADD `modified_by` varchar(255) DEFAULT NULL;
+
+ALTER TABLE `product` ADD section_id int(11) NULL;
+
+INSERT INTO valuelist (`key_text`, `value`) VALUES
+('discountValue', '10'),
+('discountValue', '15'),
+('discountValue', '20'),
+('discountValue', '25'),
+('discountValue', '30'),
+('discountValue', '35'),
+('discountValue', '40');
+
+#======== MOIN - 23/09/2017 ===============
+ALTER TABLE `inventory` ADD `inventory_code` VARCHAR(100) NULL ,
+ADD `code` VARCHAR(100) NULL ,
+ADD `color` VARCHAR(100) NULL ,
+ADD `size` VARCHAR(100) NULL ,
+ADD `model` VARCHAR(100) NULL ;
+
+ALTER TABLE `po_product` ADD `color_size_code` VARCHAR(100) NULL ;
+
+ALTER TABLE `inventory` ADD `actual_stock` INT(11) NULL , 
+ADD `inventory_code` VARCHAR(100) NULL , 
+ADD `color` VARCHAR(50) NULL , 
+ADD `size` VARCHAR(50) NULL , 
+ADD `code` VARCHAR(100) NULL , 
+ADD `model` VARCHAR(50) NULL ;
+
+#======== Mariyam - 27/09/2017 ===============
+
+CREATE TABLE IF NOT EXISTS `product_price` (
+  `product_price_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `site_id` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `created_by` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
+  `modified_by` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
+  `category` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `agent_price` float(10,2) DEFAULT NULL,
+  `agent_commission` float(10,2) DEFAULT NULL,
+  `logistics` float(10,2) DEFAULT NULL,
+  `product_weight` float(10,2) DEFAULT NULL,
+  `weight_per_kg` float(10,2) DEFAULT NULL,
+  `vat_percentage` float(10,2) DEFAULT NULL,
+  `tp_commission` float(10,2) DEFAULT NULL,
+  `ctp_commission` float(10,2) DEFAULT NULL,
+  `gst` float(10,2) DEFAULT NULL,
+  PRIMARY KEY (`product_price_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `supplier` (
+  `supplier_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `published` int(1) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `pass_word` varchar(30) DEFAULT NULL,
+  `address2` varchar(255) DEFAULT NULL,
+  `address_town` varchar(255) DEFAULT NULL,
+  `address_state` varchar(255) DEFAULT NULL,
+  `address_country` varchar(255) DEFAULT NULL,
+  `address_po_code` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `fax` varchar(255) DEFAULT NULL,
+  `notes` text,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `flag` int(1) DEFAULT NULL,
+  `address1` varchar(255) DEFAULT NULL,
+  `status` varchar(25) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `sort_order` int(11) DEFAULT '0',
+  `category` varchar(50) DEFAULT NULL,
+  `address_city` varchar(255) NOT NULL,
+  `source` varchar(255) DEFAULT NULL,
+  `company_size` varchar(255) DEFAULT NULL,
+  `industry` varchar(255) DEFAULT NULL,
+  `supplier_type` varchar(255) DEFAULT NULL,
+  `group_name` varchar(25) DEFAULT NULL,
+  `reg_number` varchar(100) DEFAULT NULL,
+  `contact_name` varchar(50) DEFAULT NULL,
+  `contact_email` varchar(100) DEFAULT NULL,
+  `contact_position` varchar(50) DEFAULT NULL,
+  `contact_phone` varchar(50) DEFAULT NULL,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `nature_of_business` varchar(255) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `contact_mobile` varchar(100) NOT NULL,
+  `salutation` varchar(20) DEFAULT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `address_street` varchar(255) DEFAULT NULL,
+  `address_flat` varchar(255) DEFAULT NULL,
+  `notification_email` varchar(100) DEFAULT NULL,
+  `return_address_flat` varchar(100) DEFAULT NULL,
+  `return_address_street` varchar(100) DEFAULT NULL,
+  `return_address_town` varchar(100) DEFAULT NULL,
+  `return_address_state` varchar(100) DEFAULT NULL,
+  `return_address_country` varchar(100) DEFAULT NULL,
+  `tin_no` varchar(100) DEFAULT NULL,
+  `cst_no` varchar(100) DEFAULT NULL,
+  `gst_no` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`supplier_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+ALTER TABLE `product` ADD `commission` FLOAT( 10, 2 ) NULL ;
+
+#======== ANSARI - 28/09/2017 ===============
+ALTER TABLE `product` CHANGE `hsn` `hsn_sac` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL; 
+ALTER TABLE `product` ADD discount_type varchar(100) NULL;
+ALTER TABLE `product` ADD discount_percentage decimal(10,2) NULL;
+ALTER TABLE `product` ADD discount_amount decimal(10,2) NULL;
+ALTER TABLE `quote_product` ADD discount_amount decimal(10,2) NULL;
+ALTER TABLE `order_item` ADD discount_amount decimal(10,2) NULL;
+ALTER TABLE `invoice_item` ADD discount_amount decimal(10,2) NULL;
+ALTER TABLE `order_item` ADD total_amount decimal(10,2) NULL;
+ALTER TABLE `invoice_item` ADD total_amount decimal(10,2) NULL;
+ALTER TABLE `order_item` ADD discounted_amount decimal(10,2) NULL;
+ALTER TABLE `invoice_item` ADD discounted_amount decimal(10,2) NULL;
+
+ALTER TABLE `purchase_order` ADD `title` VARCHAR(100) NULL ;
+ALTER TABLE `po_product` ADD `qty_requested` INT(11) NULL ,
+ADD `selling_price` DECIMAL(10,2) NULL ;
+
+ALTER TABLE `product` ADD `gst` DECIMAL(10,2) NULL ;
+ALTER TABLE `product` ADD `product_weight` FLOAT(10,2) NULL ;
+
+ALTER TABLE `order_item` CHANGE `colours` `colours` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `invoice_item` CHANGE `colours` `colours` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `receipt` MODIFY COLUMN receipt_id int(11) auto_increment;
+ALTER TABLE `receipt` CHANGE `date` `date` DATE NULL DEFAULT NULL;
+ALTER TABLE `supplier` CHANGE `address_city` `address_city` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `supplier` CHANGE `contact_mobile` `contact_mobile` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+
+#======== MOIN - 10/06/2017 ===============
+ALTER TABLE `po_product` ADD `cost_price` DECIMAL(10,2) NULL ;
+ALTER TABLE `staff` MODIFY COLUMN staff_id int(11) auto_increment;
+
+#======== MOIN - 07/10/2017 ===============
+ALTER TABLE `order` ADD `credit_card_no` VARCHAR(25) NULL;
+ALTER TABLE `order` ADD `mode_of_payment` VARCHAR(25) NULL;
+
+#======== ANSARI - 09/10/2017 ===============
+ALTER TABLE `setting` MODIFY COLUMN setting_id int(11) auto_increment;
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('nextBillNumber', '1', 'Using this number bill number is generated', 'Number Field', NOW(), 1);
+ALTER TABLE `order_item` ADD `gst` DECIMAL(10,2) NULL;
+ALTER TABLE `invoice_item` ADD `gst` DECIMAL(10,2) NULL;
+ALTER TABLE `receipt` CHANGE `flag` `flag` TINYINT(4) NULL DEFAULT NULL;
+ALTER TABLE `invoice_receipt_history` CHANGE `flag` `flag` TINYINT(4) NULL DEFAULT NULL;
+
+#======== ANSARI - 10/10/2017 ===============
+ALTER TABLE `staff` ADD `logged_in_status` VARCHAR(10) NULL;
+
+#======== ANSARI - 11/10/2017 ===============
+ALTER TABLE `order` ADD `bill_number` VARCHAR(50) NULL;
+
+CREATE TABLE IF NOT EXISTS `lead_history` (
+  `lead_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `client_code` varchar(50) DEFAULT NULL,
+  `radnom_no` varchar(150) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `active_date` date DEFAULT NULL,
+  PRIMARY KEY (`lead_history_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('cp.serialKeyActive', '', 'This will contain the activation key', 'Text Field', NOW(), 1);
+
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('cp.activationStatus', '', 'This will contain the activation status', 'Text Field', NOW(), 1);
+
+ALTER TABLE `lead_history` CHANGE `status` `status` VARCHAR(10) NULL DEFAULT NULL;
+
+#======== MOIN - 12/10/2017 ===============
+CREATE TABLE IF NOT EXISTS `admin_translation` (
+  `admin_translation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `key_text` varchar(255) DEFAULT NULL,
+  `value` text,
+  `chi_value` text,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `group_name` varchar(50) DEFAULT NULL,
+  `is_html_text` varchar(1) DEFAULT NULL,
+  `show_to_user` int(1) DEFAULT NULL,
+  PRIMARY KEY (`admin_translation_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `admin_translation` ADD `tam_value` TEXT NULL ;
+
+INSERT INTO `admin_translation` (`key_text`, `value`, `tam_value`, `creation_date`, `modification_date`, `group_name`, `is_html_text`, `show_to_user`) VALUES
+('cp.label.serialNo', 'S.No', '', '2017-10-11 13:18:13', '2017-10-11 13:18:31', NULL, NULL, NULL),
+('cp.label.itemCode', 'Item Code', '', '2017-10-11 13:18:13', '2017-10-11 13:18:31', NULL, NULL, NULL),
+('cp.label.unit', 'UOM', '', '2017-10-11 13:18:13', '2017-10-11 13:18:31', NULL, NULL, NULL),
+('cp.label.qty', 'Qty', '', '2017-10-11 13:18:13', '2017-10-11 13:18:31', NULL, NULL, NULL),
+('cp.label.unitPrice', 'Unit Price', '', '2017-10-11 13:18:13', '2017-10-11 13:18:31', NULL, NULL, NULL),
+('cp.label.discountType', 'Discount Type', '', '2017-10-11 13:18:13', '2017-10-11 13:18:31', NULL, NULL, NULL),
+('cp.label.discountAmount', 'Discount Amt', '', '2017-10-11 13:18:13', '2017-10-11 13:18:31', NULL, NULL, NULL),
+('cp.label.total', 'Total', '', '2017-10-11 13:18:13', '2017-10-11 13:18:31', NULL, NULL, NULL),
+('cp.label.delete', 'Delete', '', '2017-10-11 13:18:13', '2017-10-11 13:18:31', NULL, NULL, NULL);
+
+#======== ANSARI - 13/10/2017 ===============
+ALTER TABLE `lead_history` ADD `no_of_users` VARCHAR(10) DEFAULT NULL;
+ALTER TABLE `lead_history` ADD `linked_date` datetime DEFAULT NULL;
+ALTER TABLE `lead_history` ADD `linked_by` VARCHAR(255) DEFAULT NULL;
+
+#======== ANSARI - 14/10/2017 ===============
+ALTER TABLE `user_group` MODIFY COLUMN user_group_id int(11) auto_increment;
+ALTER TABLE `staff` MODIFY COLUMN staff_id int(11) auto_increment;
+
+#======== MOIN - 16/10/2017 ===============
+CREATE TABLE IF NOT EXISTS `product_supplier_temp` (
+  `product_supplier_temp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) DEFAULT NULL,
+  `selling_price` float(10,2) DEFAULT NULL,
+  `cost_price` float(10,2) DEFAULT NULL,
+  `qty_requested` INT(11) DEFAULT NULL,
+  `status` varchar(25) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `batch_no` int(11) DEFAULT NULL,
+  PRIMARY KEY (`product_supplier_temp_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `product_supplier_temp` ADD `gst` DECIMAL(10,2) NULL ,
+ADD `unit` VARCHAR(100) NULL ,
+ADD `product_weight` FLOAT(10,2) NULL ,
+ADD `hsn` VARCHAR(100) NULL ,
+ADD `category_id` INT(11) NULL;
+
+#======== ANSARI - 19/10/2017 ===============
+ALTER TABLE `inventory` ADD `notes` VARCHAR(255) DEFAULT NULL;
+ALTER TABLE `lead_history` ADD `no_of_days` VARCHAR(20) DEFAULT NULL;
+ALTER TABLE `lead_history` ADD `expiry_date` date DEFAULT NULL;
+ALTER TABLE `lead_history` ADD `weekly_key` varchar(150) DEFAULT NULL;
+
+#======== ANSARI - 20/10/2017 ===============
+ALTER TABLE `lead_history` CHANGE `client_code` `agent_code` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `lead_history` CHANGE `radnom_no` `active_key` VARCHAR(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `lead_history` CHANGE `weekly_key` `trial_key` VARCHAR(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `company` ADD `no_of_days` VARCHAR(20) DEFAULT NULL;
+
+#======== ANSARI - 21/10/2017 ===============
+ALTER TABLE `lead_history` ADD `product_name` VARCHAR(255) DEFAULT NULL;
+
+#======== MOIN - 21/10/2017 ===============
+INSERT INTO setting (`key_text`, `value`, `description`, `value_type`, `creation_date`, `show_to_user`) VALUES
+('inventoryCode', '10000', 'Inventory code', 'Number Field', NOW(), 1);
+
+#======== Mariyam - 20/10/2017 ===============
+CREATE TABLE IF NOT EXISTS `supplier_receipt` (
+  `supplier_receipt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `receipt_code` varchar(55) DEFAULT NULL,
+  `amount` float(10,2) DEFAULT NULL,
+  `mode_of_payment` varchar(55) DEFAULT NULL,
+  `remarks` text,
+  `date` date DEFAULT NULL,
+  `published` tinyint(4) DEFAULT NULL,
+  `flag` tinyint(4) NOT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `supplier_id` int(11) DEFAULT NULL,
+  `receipt_status` varchar(100) NOT NULL,
+  `cheque_date` date DEFAULT NULL,
+  `bank_name` varchar(500) DEFAULT NULL,
+  `issued_by` varchar(300) DEFAULT NULL,
+  `cheque_no` int(11) DEFAULT NULL,
+  `coi_no` varchar(100) DEFAULT NULL,
+  `company_contact_salutation` varchar(10) DEFAULT NULL,
+  `company_contact_name` varchar(255) DEFAULT NULL,
+  `cust_first_name` varchar(255) DEFAULT NULL,
+  `cust_email` varchar(50) DEFAULT NULL,
+  `cust_address1` varchar(100) DEFAULT NULL,
+  `cust_address2` varchar(100) DEFAULT NULL,
+  `cust_address_po_code` varchar(10) DEFAULT NULL,
+  `cust_address_country_code` varchar(2) DEFAULT NULL,
+  `site_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`supplier_receipt_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `supplier_receipt_history` (
+  `supplier_receipt_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `purchase_order_id` int(11) DEFAULT NULL,
+  `supplier_receipt_id` int(11) DEFAULT NULL,
+  `published` tinyint(4) DEFAULT NULL,
+  `flag` tinyint(4) NOT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `purchase_order_date` date DEFAULT NULL,
+  `invoice_paid_status` varchar(500) DEFAULT NULL,
+  `title` varchar(300) DEFAULT NULL,
+  `installment_id` int(11) DEFAULT NULL,
+  `receipt_type` varchar(25) DEFAULT NULL,
+  `related_purchase_order_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`supplier_receipt_history_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `purchase_order` ADD `payment_status` VARCHAR(50) DEFAULT NULL;
+
+#======== MOIN - 23/10/2017 ===============
+ALTER TABLE `product` ADD `tam_title` VARCHAR(100) NULL ,
+ADD `tam_description` TEXT NULL ,
+ADD `tam_description_short` TEXT NULL ;
+
+#======== ANSARI - 31/10/2017 ===============
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('password for sync files', 'cp.serverSyncSecretKey', 'Syed786@Uss', '2017-10-31 16:30:25', '2017-10-31 16:30:46', NULL, 'Text Field', 1, NULL, NULL, NULL),
+('Sync Folder Server Link with Access', 'cp.syncFolderServerPath', 'http://cubobillpro.usoftdev.com/Sync/packServer.php', '2017-10-31 16:28:25', '2017-10-31 16:29:30', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== MOIN - 31/10/2017 ===============
+ALTER TABLE `product` ADD `supplier_id` INT(11) NULL;
+ALTER TABLE `po_product` ADD `gst` DECIMAL(10,2) NULL;
+ALTER TABLE `purchase_order` ADD `supplier` VARCHAR(100) NULL;
+
+#======== ANSARI - 02/11/2017 =============
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('Demo version status will be updated using this value.', 'cp.demoVersionStatus', '0', '2017-11-02 11:55:53', '2017-11-02 14:58:02', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== ANSARI - 02/11/2017 ===============
+CREATE TABLE IF NOT EXISTS `sql_log` (
+  `sql_log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sqllog` TINYBLOB DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`sql_log_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+ALTER TABLE `purchase_order` CHANGE `purchase_order_date` `purchase_order_date` DATE DEFAULT NULL;
+
+#======== MOIN - 04/11/2017 =============
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('Unedit Price history for MRP Products', 'cp.mrpProducts', '1', '2017-11-02 11:55:53', '2017-11-02 14:58:02', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== ANSARI - 06/11/2017 ===============
+ALTER TABLE `sql_log` CHANGE `sqllog` `sqllog` LONGTEXT NULL DEFAULT NULL;
+ALTER TABLE `product` ADD product_type VARCHAR(50) DEFAULT NULL;
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('Multi language enable for admin', 'cp.multiLang', '0', '2017-11-06 18:29:48', '2017-11-06 18:31:10', NULL, 'Text Field', 1, NULL, NULL, NULL),
+('Enable multilang for admin', 'cp.hasAdminInterfaceLangs', '0', '2017-11-06 18:26:37', '2017-11-06 18:28:30', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== MOIN - 07/11/2017 ===============
+ALTER TABLE `inventory` ADD `created_by` VARCHAR(100) NULL, 
+ADD `modified_by` VARCHAR(100) NULL;
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('Inventory Code', 'inventoryCode', '1000', '2017-11-02 11:55:53', '2017-11-02 14:58:02', NULL, 'Number Field', 1, NULL, NULL, NULL);
+
+#======== MOIN - 09/11/2017 ===============
+ALTER TABLE `po_product` ADD `damage_qty` INT(10) NULL;
+
+#======== ANSARI - 17/11/2017 ===============
+ALTER TABLE `po_product` ADD `discount_type` varchar(100) DEFAULT NULL;
+ALTER TABLE `po_product` ADD `discount_percentage` decimal(10,2) DEFAULT NULL;
+ALTER TABLE `po_product` ADD `discount_amount` decimal(10,2) DEFAULT NULL;
+
+#======== Mariyam - 29/11/2017 ===============
+ALTER TABLE `order` ADD `delivery_date` DATE NULL ;
+
+#======== ANSARI - 29/11/2017 ===============
+ALTER TABLE `purchase_order` CHANGE `site_id` `site_id` INT(11) NULL DEFAULT NULL;
+ALTER TABLE `supplier_receipt` CHANGE `flag` `flag` TINYINT(4) NULL DEFAULT NULL;
+ALTER TABLE `supplier_receipt` CHANGE `receipt_status` `receipt_status` VARCHAR(100) NULL DEFAULT NULL;
+ALTER TABLE `supplier_receipt_history` CHANGE `flag` `flag` TINYINT(4) NULL DEFAULT NULL;
+ALTER TABLE `order` ADD `gst_status` varchar(5) DEFAULT NULL;
+ALTER TABLE `invoice` ADD `gst_status` varchar(5) DEFAULT NULL;
+
+#======== MOIN - 21/12/2017 ===============
+ALTER TABLE `product_supplier_temp` ADD `product_type` VARCHAR(100) NULL;
+
+#======== Mariyam - 22/12/2017 ===============
+ALTER TABLE `order` ADD `loyalty_points` INT( 11 ) NULL;
+ALTER TABLE `company` ADD `loyalty_point_linked` INT( 1 ) NULL;
+ALTER TABLE `company` ADD `loyalty_linked_date` DATE NULL;
+
+#======== Ansari - 26/12/2017 ===============
+ALTER TABLE `order` ADD `cust_gst_no` VARCHAR(25) NULL;
+ALTER TABLE `order` ADD `shipping_gst_no` VARCHAR(25) NULL;
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This field is used to check the company type.', 'cp.companyType', '', '2017-12-26 18:04:23', '2017-12-26 18:06:24', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== Ansari - 27/12/2017 ===============
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to store the terms on order', 'invoiceTermsForPrint', '', '2017-12-27 14:10:01', '2017-12-27 14:10:30', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('Duplicate Bill Copy Text', 'duplicateCopyBillText', 'Duplicate Copy  <br/> For Transporters', '2017-12-27 17:15:13', '2017-12-27 17:26:57', NULL, 'Text Field', 1, NULL, NULL, NULL),
+('Bill Text For Original Copy', 'originalBillCopyText', 'Original Copy <br/> For Buyers', '2017-12-27 17:14:32', '2017-12-27 17:14:56', NULL, 'Text Field', 1, NULL, NULL, NULL),
+('This is used to store the terms on order', 'invoiceTermsForPrint', 'Terms & Conditions <br/>E.&O.E.<br/>1.Goods once sold will not be taken back.<br/>                     2.Interest @ 18%p.a. will be charged if the payment <br/>is not made with in the stipulated time.<br/>3.Subject to \"puducherry\" Jurisdiction only.', '2017-12-27 14:10:01', '2017-12-27 14:13:38', NULL, 'Text Field', 1, NULL, NULL, NULL),
+('Show GST ON OFF Button', 'showGstOnOff', '0', '2017-12-27 13:54:18', '2017-12-27 13:54:47', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+ALTER TABLE `order` ADD `igst_show` tinyint(4) DEFAULT NULL;
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to display the company pan no', 'cp.companyPanNo', '', '2017-12-30 13:08:29', '2017-12-30 13:08:49', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== Mariyam - 4/1/2018 ===============
+CREATE TABLE IF NOT EXISTS `stock_transfer` (
+  `stock_transfer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `from_location` int(4) DEFAULT NULL,
+  `to_location` int(4) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `lock_record` int(1) DEFAULT NULL,
+  `stock_deducted` int(1) DEFAULT NULL,
+  PRIMARY KEY (`stock_transfer_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `site` (
+  `site_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `admin_email` varchar(255) NOT NULL,
+  `creation_date` date NOT NULL,
+  `modification_date` date NOT NULL,
+  `default_language` varchar(100) DEFAULT NULL,
+  `published` tinyint(1) NOT NULL,
+  `flag` int(1) DEFAULT NULL,
+  `site_url` varchar(255) DEFAULT NULL,
+  `google_analytics_id` varchar(255) DEFAULT NULL,
+  `tag_line` varchar(155) DEFAULT NULL,
+  `tag_line2` varchar(155) DEFAULT NULL,
+  `theme` varchar(50) DEFAULT NULL,
+  `skin` varchar(50) DEFAULT NULL,
+  `created_by` varchar(50) DEFAULT NULL,
+  `modified_by` varchar(50) DEFAULT NULL,
+  `ad_ops_site_name` varchar(255) DEFAULT NULL,
+  `additional_meta_tags` text,
+  `additional_analytics_script` text,
+  `address1` varchar(255) DEFAULT NULL,
+  `address2` varchar(255) DEFAULT NULL,
+  `address_state` varchar(255) DEFAULT NULL,
+  `address_town` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`site_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `stock_transfer_history` (
+  `stock_transfer_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stock_transfer_id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `qty` decimal(10,2) DEFAULT '0.00',
+  `status` varchar(20) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `modified_by` varchar(100) DEFAULT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `qty_requested` decimal(10,2) DEFAULT '0.00',
+  `lock_record` int(1) DEFAULT NULL,
+  `stock_deducted` int(1) DEFAULT NULL,
+  `product_status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`stock_transfer_history_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+#======== Moin - 4/1/2018 ===============
+ALTER TABLE `product` ADD `bar_code` VARCHAR(100) NULL DEFAULT NULL;
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to display gst in pos and bill', 'showGstInBill', 0, '2017-12-30 13:08:29', '2017-12-30 13:08:49', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to display name in bill', 'billname', '', '2017-12-30 13:08:29', '2017-12-30 13:08:49', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to display weight column in POS', 'showWeightInPos', 0, '2017-12-30 13:08:29', '2017-12-30 13:08:49', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+ALTER TABLE `po_product` ADD `product_weight` FLOAT(10,2) NULL;
+ALTER TABLE `order_item` ADD `weight` FLOAT(10,2) NULL;
+
+ALTER TABLE `stock_transfer` CHANGE `from_location` `from_location` VARCHAR(50) NULL DEFAULT NULL, CHANGE `to_location` `to_location` VARCHAR(50) NULL DEFAULT NULL;
+#======== Ansari - 10/01/2018 ===============
+ALTER TABLE `order_item` ADD `ref_no` int(11) DEFAULT NULL;
+ALTER TABLE `invoice_item` ADD `ref_no` int(11) DEFAULT NULL;
+
+#======== MOIN - 16/01/2018 ===============
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to display mobile number in POS bill', 'cp.mobileNumInBill', '', '2017-12-30 13:08:29', '2017-12-30 13:08:49', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+ALTER TABLE `purchase_order` ADD `supplier_inv_code` VARCHAR(100) DEFAULT NULL;
+
+#======== ANSARI - 25/01/2018 ===============
+ALTER TABLE `product` ADD `pack_size` VARCHAR(50) DEFAULT NULL;
+ALTER TABLE `po_product` ADD `pack_size` VARCHAR(50) DEFAULT NULL;
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to display pack size column in POS', 'showPackSizeInPos', 0, '2018-01-25 13:08:29', '2018-01-25 13:08:49', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== ANSARI - 30/01/2018 ===============
+ALTER TABLE `product`      ADD `tag_no` int(11) DEFAULT NULL;
+ALTER TABLE `po_product`   ADD `tag_no` int(11) DEFAULT NULL;
+ALTER TABLE `order_item`   ADD `tag_no` int(11) DEFAULT NULL;
+ALTER TABLE `invoice_item` ADD `tag_no` int(11) DEFAULT NULL;
+ALTER TABLE `product_supplier_temp` ADD `tag_no` int(11) DEFAULT NULL;
+
+#======== ANSARI - 31/01/2018 ===============
+ALTER TABLE `order` ADD `delivery_challan_no` int(11) DEFAULT NULL;
+
+ALTER TABLE `stock_transfer` ADD `title` VARCHAR(100) NULL,
+ADD `notes` VARCHAR(100) NULL;
+
+ALTER TABLE `product` CHANGE `qty_in_stock` `qty_in_stock` DECIMAL(10,2) NULL DEFAULT '0.00';
+ALTER TABLE `inventory` CHANGE `actual_stock` `actual_stock` DECIMAL(10,2) NULL DEFAULT NULL;
+ALTER TABLE `order_item` CHANGE `qty` `qty` DECIMAL(10,2) UNSIGNED NOT NULL DEFAULT '0.00';
+ALTER TABLE `invoice_item` CHANGE `qty` `qty` DECIMAL(10,2) UNSIGNED NOT NULL DEFAULT '0.00';
+ALTER TABLE `sales_return_history` CHANGE `qty_return` `qty_return` DECIMAL(10,2) NULL DEFAULT NULL;
+ALTER TABLE `po_product` CHANGE `qty` `qty` DECIMAL(10,2) UNSIGNED NOT NULL DEFAULT '0.00';
+ALTER TABLE `po_product` CHANGE `qty_delivered` `qty_delivered` DECIMAL(10,2) NOT NULL DEFAULT '0.00';
+ALTER TABLE `po_product` CHANGE `qty_due` `qty_due` DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE `po_product` CHANGE `qty_cancelled` `qty_cancelled` DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE `po_product` CHANGE `qty_requested` `qty_requested` DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE `po_product` CHANGE `damage_qty` `damage_qty` DECIMAL(10,2) DEFAULT NULL;
+
+
+#======== ANSARI - 08/02/2018 ===============
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('Duplicate Bill Copy Text', 'triplicateBillCopyText', 'Triplicate Copy', '2017-12-27 17:15:13', '2017-12-27 17:26:57', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== MOIN - 13/02/2018 ===============
+ALTER TABLE `stock_history` ADD `po_product_id` INT(11) NULL,
+ADD `purchase_order_id` INT(11) NULL,
+ADD `product_id` INT(11) NULL,
+ADD `qty` DECIMAL(10,2) NOT NULL DEFAULT '0.00';
+
+#======== ANSARI - 22/02/2018 ===============
+UPDATE `setting` SET `value` = 'http://cubobillpro.usoftdev.com/admin/Sync/packServer.php' WHERE `key_text` = 'cp.syncFolderServerPath';
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to display the todays collection in pos screen header.', 'cp.showCollectionForTheDay', '0', '2018-02-22 16:02:53', '2018-02-22 16:03:31', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to set the default discount type in pos module.', 'cp.posDefaultDiscountType', '', '2018-02-10 10:56:27', '2018-02-10 12:00:58', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== MOIN - 26/02/2018 ===============
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This text will show in pos bill footer.', 'cp.posBillFooterText', '', '2018-02-10 10:56:27', '2018-02-10 12:00:58', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to display customer details in pos bill footer.', 'cp.showCustomerDetailsInFooter', '0', '2018-02-22 16:02:53', '2018-02-22 16:03:31', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== ANSARI - 24/02/2018 ===============
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This is used to enable the tamil heading on the report.', 'cp.reportTamilHeadingShowHide', '0', '2018-02-24 12:14:28', '2018-02-24 12:15:23', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== ANSARI - 27/02/2018 ===============
+ALTER TABLE `supplier_receipt` MODIFY COLUMN supplier_receipt_id int(11) auto_increment;
+ALTER TABLE `supplier_receipt_history` MODIFY COLUMN supplier_receipt_history_id int(11) auto_increment;
+
+#======== MOIN - 02/03/2018 ===============
+ALTER TABLE `stock_history` DROP `product_code`, DROP `qty_in_stock`, DROP `member_only`, DROP `chi_title`, DROP `chi_description`, DROP `meta_title`, DROP `meta_description`, DROP `meta_keyword`, DROP `latest`, DROP `description_short`, DROP `chi_description_short`, DROP `general_quotation`, DROP `unit`, DROP `product_group_id`, DROP `department_id`;
+
+#======== ANSARI - 06/03/2018 ===============
+ALTER TABLE `product` ADD `discount_from_date` date DEFAULT NULL;
+ALTER TABLE `product` ADD `discount_to_date` date DEFAULT NULL;
+ALTER TABLE `stock_history` ADD `damage_qty` DECIMAL(10,2) NULL;
+ALTER TABLE `company` ADD `opening_balance` FLOAT(10,2) NULL;
+
+#======== ANSARI - 07/03/2018 ===============
+INSERT INTO `setting` (`setting_id`, `description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+(94, 'It is to make the unit price editable in POS screen.', 'cp.posUnitPriceEditable', '0', '2018-03-07 18:25:14', '2018-03-07 19:13:41', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+#======== MOIN - 07/03/2018 ===============
+INSERT INTO `setting` (`description`, `key_text`, `value`, `creation_date`, `modification_date`, `group_name`, `value_type`, `show_to_user`, `chi_value`, `used_for_admin`, `used_for_www`) VALUES
+('This text continue the bill no. in pos for next day also', 'cp.posBillNoContinuity', 0, '2018-03-07 10:56:27', '2018-03-07 12:00:58', NULL, 'Text Field', 1, NULL, NULL, NULL);
+
+ALTER TABLE `order` ADD `bill_by` VARCHAR(100) NULL;
+
+ALTER TABLE `po_product` ADD `mrp` DECIMAL(10,2) NULL;
+ALTER TABLE `product` ADD `mrp` DECIMAL(10,2) NULL;
+ALTER TABLE `po_product` CHANGE `tag_no` `tag_no` VARCHAR(50) NULL;
+
+#========= ANSARI (16.01.2019) =========#
+ALTER TABLE `order` ADD `staff_id` INT(11) DEFAULT NULL;

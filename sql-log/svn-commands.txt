@@ -1,0 +1,12 @@
+﻿USE THIS COMMAND TO TRANSFER LOCAL FILES FROM TO DEV/TEST :
+==========================================================
+/utils/export-from-git.sh --repo cubobillpro --dest /home/cubobillpro/public_html/
+
+
+#LOCAL : USE THIS COMMAND TO MOVE LOCAL FILES TO LIVE :
+#=====================================================
+
+Password:syedstorm315$
+
+
+
