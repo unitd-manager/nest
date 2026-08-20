@@ -1,0 +1,8 @@
+*.tar.gz
+*.zip
+*.log
+error_log
+sql-log/
+.env
+.env.*
+node_modules/
